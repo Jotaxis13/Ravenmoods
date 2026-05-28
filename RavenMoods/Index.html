@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RavenMoods — Editorial Atmosphere</title>
+
+  <!-- FONTS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    :root{
+      --bg:#060606;
+      --text:#f1f1f1;
+      --soft:#9b9b9b;
+      --line:rgba(255,255,255,0.08);
+    }
+
+    body{
+      background:var(--bg);
+      color:var(--text);
+      font-family:'Inter', sans-serif;
+      overflow-x:hidden;
+      position:relative;
+    }
+
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      background-image:url('https://grainy-gradients.vercel.app/noise.svg');
+      opacity:0.07;
+      pointer-events:none;
+      z-index:9999;
+      mix-blend-mode:soft-light;
+    }
+
+    a{
+      text-decoration:none;
+      color:inherit;
+    }
+
+    img{
+      width:100%;
+      display:block;
+    }
+
+    /* NAV */
+
+    nav{
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      z-index:999;
+      padding:28px 7%;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      backdrop-filter:blur(14px);
+      background:rgba(0,0,0,0.25);
+      border-bottom:1px solid rgba(255,255,255,0.04);
+    }
+
+    .logo{
+      font-family:'Cormorant Garamond', serif;
+      font-size:28px;
+      letter-spacing:5px;
+      font-weight:600;
+    }
+
+    .menu{
+      display:flex;
+      gap:30px;
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:3px;
+      color:#b9b9b9;
+    }
+
+    .menu a{
+      transition:0.3s;
+    }
+
+    .menu a:hover{
+      color:white;
+    }
+
+    /* HERO */
+
+    .hero{
+      min-height:100vh;
+      padding:160px 7% 100px;
+      display:flex;
+      align-items:center;
+      position:relative;
+    }
+
+    .hero-grid{
+      width:100%;
+      display:grid;
+      grid-template-columns:1.2fr 0.8fr;
+      gap:50px;
+      align-items:center;
+    }
+
+    .hero-left small{
+      text-transform:uppercase;
+      letter-spacing:4px;
+      color:#8f8f8f;
+      display:block;
+      margin-bottom:30px;
+    }
+
+    .hero-left h1{
+      font-family:'Cormorant Garamond', serif;
+      font-size:8vw;
+      line-height:0.88;
+      font-weight:500;
+      margin-bottom:35px;
+      letter-spacing:-2px;
+    }
+
+    .hero-left p{
+      max-width:500px;
+      color:#a8a8a8;
+      line-height:1.9;
+      font-size:15px;
+    }
+
+    .hero-image{
+      position:relative;
+      height:720px;
+      overflow:hidden;
+      border-radius:2px;
+    }
+
+    .hero-image img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      filter:brightness(0.8) contrast(1.05);
+    }
+
+    .hero-image::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+      linear-gradient(to top, rgba(0,0,0,0.65), transparent),
+      linear-gradient(to right, rgba(0,0,0,0.35), transparent);
+    }
+
+    /* FLOATING TEXT */
+
+    .floating-text{
+      position:absolute;
+      bottom:40px;
+      left:-40px;
+      writing-mode:vertical-rl;
+      transform:rotate(180deg);
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:5px;
+      color:#8a8a8a;
+    }
+
+    /* SECTION */
+
+    section{
+      padding:120px 7%;
+      position:relative;
+    }
+
+    .section-label{
+      font-size:11px;
+      letter-spacing:4px;
+      text-transform:uppercase;
+      color:#777;
+      margin-bottom:60px;
+    }
+
+    /* EDITORIAL BLOCK */
+
+    .editorial{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:80px;
+      align-items:center;
+    }
+
+    .editorial-text h2{
+      font-family:'Cormorant Garamond', serif;
+      font-size:70px;
+      line-height:0.95;
+      font-weight:500;
+      margin-bottom:30px;
+    }
+
+    .editorial-text p{
+      color:#9f9f9f;
+      line-height:2;
+      max-width:500px;
+      margin-bottom:40px;
+    }
+
+    .editorial-btn{
+      border:1px solid rgba(255,255,255,0.15);
+      background:transparent;
+      color:white;
+      padding:15px 26px;
+      letter-spacing:3px;
+      text-transform:uppercase;
+      font-size:11px;
+      cursor:pointer;
+      transition:0.4s;
+    }
+
+    .editorial-btn:hover{
+      background:white;
+      color:black;
+    }
+
+    .editorial-image{
+      position:relative;
+      overflow:hidden;
+      height:700px;
+    }
+
+    .editorial-image img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      filter:grayscale(15%) contrast(1.1);
+    }
+
+    /* QUOTE */
+
+    .quote-section{
+      text-align:center;
+      max-width:1100px;
+      margin:auto;
+      padding:160px 0;
+    }
+
+    .quote{
+      font-family:'Cormorant Garamond', serif;
+      font-size:95px;
+      line-height:1;
+      letter-spacing:-2px;
+      margin-bottom:40px;
+    }
+
+    .quote-sub{
+      color:#868686;
+      max-width:700px;
+      margin:auto;
+      line-height:2;
+      font-size:15px;
+    }
+
+    /* GRID */
+
+    .mood-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+      gap:40px;
+    }
+
+    .mood-card{
+      position:relative;
+      overflow:hidden;
+      min-height:520px;
+      background:#0d0d0d;
+    }
+
+    .mood-card img{
+      height:100%;
+      object-fit:cover;
+      transition:0.8s;
+      filter:brightness(0.78);
+    }
+
+    .mood-card:hover img{
+      transform:scale(1.04);
+    }
+
+    .mood-overlay{
+      position:absolute;
+      inset:0;
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-end;
+      padding:35px;
+      background:linear-gradient(to top, rgba(0,0,0,0.88), transparent);
+    }
+
+    .mood-category{
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:3px;
+      color:#c7c7c7;
+      margin-bottom:14px;
+    }
+
+    .mood-title{
+      font-family:'Cormorant Garamond', serif;
+      font-size:42px;
+      line-height:1;
+      margin-bottom:14px;
+    }
+
+    .mood-desc{
+      color:#9c9c9c;
+      line-height:1.8;
+      font-size:14px;
+    }
+
+    /* NEWSLETTER */
+
+    .newsletter{
+      border-top:1px solid var(--line);
+      border-bottom:1px solid var(--line);
+      padding:140px 0;
+      text-align:center;
+    }
+
+    .newsletter h2{
+      font-family:'Cormorant Garamond', serif;
+      font-size:88px;
+      line-height:0.95;
+      font-weight:500;
+      margin-bottom:30px;
+    }
+
+    .newsletter p{
+      color:#8e8e8e;
+      margin-bottom:40px;
+      line-height:2;
+      max-width:700px;
+      margin-inline:auto;
+    }
+
+    .newsletter-form{
+      display:flex;
+      justify-content:center;
+      gap:15px;
+      flex-wrap:wrap;
+    }
+
+    .newsletter-form input{
+      width:340px;
+      padding:18px;
+      background:#111;
+      border:1px solid rgba(255,255,255,0.06);
+      color:white;
+      outline:none;
+    }
+
+    .newsletter-form button{
+      padding:18px 28px;
+      background:white;
+      border:none;
+      cursor:pointer;
+      text-transform:uppercase;
+      letter-spacing:2px;
+      font-size:11px;
+    }
+
+    /* FOOTER */
+
+    footer{
+      padding:60px 7%;
+      display:flex;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      gap:20px;
+      color:#666;
+      font-size:13px;
+    }
+
+    /* SCROLL ANIMATION */
+
+    .fade{
+      opacity:0;
+      transform:translateY(40px);
+      transition:1.2s ease;
+    }
+
+    .fade.active{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    /* MOBILE */
+
+    @media(max-width:980px){
+
+      .hero-grid,
+      .editorial{
+        grid-template-columns:1fr;
+      }
+
+      .hero-left h1{
+        font-size:70px;
+      }
+
+      .quote{
+        font-size:56px;
+      }
+
+      .newsletter h2{
+        font-size:58px;
+      }
+
+      .menu{
+        display:none;
+      }
+
+      .hero-image,
+      .editorial-image{
+        height:500px;
+      }
+
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+
+  <nav>
+
+    <div class="logo">
+      RAVENMOODS
+    </div>
+
+    <div class="menu">
+      <a href="#">moods</a>
+      <a href="#">editorial</a>
+      <a href="#">finds</a>
+      <a href="#">journal</a>
+    </div>
+
+  </nav>
+
+  <!-- HERO -->
+
+  <header class="hero">
+
+    <div class="hero-grid">
+
+      <div class="hero-left fade">
+
+        <small>
+          editorial atmosphere platform
+        </small>
+
+        <h1>
+          becoming<br>
+          your own<br>
+          atmosphere
+        </h1>
+
+        <p>
+          A digital editorial universe exploring dark femininity,
+          cinematic living, emotional aesthetics and visual identity
+          through curated moods, objects and stories.
+        </p>
+
+      </div>
+
+      <div class="hero-image fade">
+
+        <img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?q=80&w=1400&auto=format&fit=crop">
+
+        <div class="floating-text">
+          romanticizing existence since 2026
+        </div>
+
+      </div>
+
+    </div>
+
+  </header>
+
+  <!-- QUOTE -->
+
+  <section class="quote-section fade">
+
+    <div class="quote">
+      “beautiful things<br>
+      make survival softer.”
+    </div>
+
+    <div class="quote-sub">
+      RavenMoods is not about products.
+      It is about atmosphere, emotional projection,
+      identity and the art of turning ordinary life
+      into something cinematic.
+    </div>
+
+  </section>
+
+  <!-- EDITORIAL -->
+
+  <section>
+
+    <div class="section-label fade">
+      editorial moods
+    </div>
+
+    <div class="editorial">
+
+      <div class="editorial-text fade">
+
+        <h2>
+          spaces that feel like paused film scenes
+        </h2>
+
+        <p>
+          Dark interiors, slow mornings, emotional textures,
+          silent luxury and curated objects designed to create
+          visual identity and emotional atmosphere.
+        </p>
+
+        <button class="editorial-btn">
+          enter the archive
+        </button>
+
+      </div>
+
+      <div class="editorial-image fade">
+
+        <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=1400&auto=format&fit=crop">
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- GRID -->
+
+  <section>
+
+    <div class="section-label fade">
+      curated moods
+    </div>
+
+    <div class="mood-grid">
+
+      <div class="mood-card fade">
+
+        <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1200&auto=format&fit=crop">
+
+        <div class="mood-overlay">
+
+          <div class="mood-category">
+            dark feminine
+          </div>
+
+          <div class="mood-title">
+            cold nights & expensive secrets
+          </div>
+
+          <div class="mood-desc">
+            Editorial moods inspired by femininity,
+            mystery and emotional elegance.
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="mood-card fade">
+
+        <img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?q=80&w=1200&auto=format&fit=crop">
+
+        <div class="mood-overlay">
+
+          <div class="mood-category">
+            curated objects
+          </div>
+
+          <div class="mood-title">
+            objects with atmosphere
+          </div>
+
+          <div class="mood-desc">
+            Pieces that transform ordinary rooms
+            into cinematic experiences.
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="mood-card fade">
+
+        <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=1200&auto=format&fit=crop">
+
+        <div class="mood-overlay">
+
+          <div class="mood-category">
+            visual identity
+          </div>
+
+          <div class="mood-title">
+            romanticizing your existence
+          </div>
+
+          <div class="mood-desc">
+            Moodboards and emotional aesthetics
+            for girls building cinematic lives.
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- NEWSLETTER -->
+
+  <section class="newsletter fade">
+
+    <h2>
+      weekly moods<br>
+      for cinematic girls
+    </h2>
+
+    <p>
+      A private editorial letter with emotional aesthetics,
+      visual identity inspirations, curated finds and cinematic moods.
+    </p>
+
+    <div class="newsletter-form">
+
+      <input type="email" placeholder="Enter your email">
+
+      <button>
+        join the archive
+      </button>
+
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
+
+  <footer>
+
+    <div>
+      RAVENMOODS © 2026
+    </div>
+
+    <div>
+      editorial atmosphere platform
+    </div>
+
+  </footer>
+
+  <!-- JAVASCRIPT -->
+
+  <script>
+
+    // FADE EFFECT
+
+    const faders = document.querySelectorAll('.fade');
+
+    const appearOptions = {
+      threshold: 0.15
+    };
+
+    const appearOnScroll = new IntersectionObserver(function(
+      entries,
+      appearOnScroll
+    ){
+
+      entries.forEach(entry => {
+
+        if(!entry.isIntersecting){
+          return;
+        }
+
+        entry.target.classList.add('active');
+        appearOnScroll.unobserve(entry.target);
+
+      });
+
+    }, appearOptions);
+
+    faders.forEach(fader => {
+      appearOnScroll.observe(fader);
+    });
+
+    // NAVBAR BLUR
+
+    window.addEventListener('scroll', () => {
+
+      const nav = document.querySelector('nav');
+
+      if(window.scrollY > 30){
+        nav.style.background = 'rgba(0,0,0,0.55)';
+      } else {
+        nav.style.background = 'rgba(0,0,0,0.25)';
+      }
+
+    });
+
+  </script>
+
+</body>
+</html>
